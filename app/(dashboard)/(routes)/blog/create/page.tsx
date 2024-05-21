@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
+import { LoaderCircle } from 'lucide-react';
 
 import TitleInput from '@/components/Blog/CreateBlog/TitleInput';
 import ContentInput from '@/components/Blog/CreateBlog/ContentInput';
@@ -52,7 +53,14 @@ const CreateBlog = () => {
             className="w-max px-3 py-2 bg-orange-200 hover:bg-orange-300 active:bg-orange-400 border-[3px] border-dashed rounded-2xl border-slate-400 hover:border-slate-500 active:border-slate-600"
             disabled={form.formState.isSubmitting}
           >
-            Publish
+            {form.formState.isSubmitting ? (
+              <div className="flex gap-2">
+                <LoaderCircle className="animate-spin" />
+                <div>Publishing</div>
+              </div>
+            ) : (
+              <div>Publish</div>
+            )}
           </button>
         </div>
         <ContentInput
