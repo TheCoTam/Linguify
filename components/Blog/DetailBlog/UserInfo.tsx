@@ -18,7 +18,6 @@ interface props {
   blogId: string;
   currentUser: any;
   comments: any[];
-  commentsOwner: any[];
   isFavorite: boolean;
 }
 
@@ -28,7 +27,6 @@ function UserInfo({
   blogId,
   currentUser,
   comments,
-  commentsOwner,
   isFavorite,
 }: props) {
   const router = useRouter();
@@ -108,7 +106,6 @@ function UserInfo({
           blogId={blogId}
           currentUser={currentUser}
           comments={comments}
-          commentsOwner={commentsOwner}
         />
       )}
     </div>

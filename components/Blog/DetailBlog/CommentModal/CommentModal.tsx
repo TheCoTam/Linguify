@@ -6,6 +6,7 @@ import * as z from 'zod';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+import styles from '@/styles/editor.module.css';
 import CommentItem from '../CommentItem';
 import Editor from '../../Editor';
 import Heading from './Heading';
@@ -18,7 +19,6 @@ interface props {
   blogId: string;
   currentUser: any;
   comments?: any[];
-  commentsOwner: any[];
 }
 
 function CommentModal({
@@ -26,7 +26,6 @@ function CommentModal({
   blogId,
   currentUser,
   comments,
-  commentsOwner,
 }: props) {
   const route = useRouter();
   const userImage = currentUser.image
@@ -44,8 +43,6 @@ function CommentModal({
 
   const onSubmit = async (data: z.infer<typeof CommentSchema>) => {
     try {
-      console.log(data);
-
       const response = await axios.post(
         `/api/blog/${blogId}/addComment`,
         data,
@@ -67,7 +64,7 @@ function CommentModal({
       onClick={closeModal}
     >
       <div
-        className="flex flex-col relative w-[95%] md:w-[90%] lg:w-[55%] xl:w-[45%] lg:h-[100vh] px-10 py-6 lg:ml-auto bg-white rounded-2xl lg:rounded-none animate-floatRightToLeft"
+        className="flex flex-col relative w-[95%] md:w-[90%] lg:w-[55%] xl:w-[45%] lg:h-[100vh] px-10 py-6 lg:ml-auto bg-white rounded-2xl lg:rounded-none animate-floatRightToLeft overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <CloseButton onClick={closeModal} />
@@ -105,6 +102,11 @@ function CommentModal({
                     value={field.value}
                     onChange={field.onChange}
                     height={200}
+                    className={
+                      form.formState.errors.content
+                        ? styles['error-editor']
+                        : ''
+                    }
                   />
                 )}
               />
@@ -145,7 +147,7 @@ function CommentModal({
                 key={index}
                 commentId={comment.id}
                 content={comment.content}
-                commentOwner={commentsOwner[index]}
+                commentOwner={comment.user}
                 createdAt={comment.createdAt}
                 updatedAt={comment.updatedAt}
                 isLiked={isLiked}

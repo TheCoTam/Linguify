@@ -2,9 +2,8 @@ import { redirect } from 'next/navigation';
 
 import Content from '@/components/Blog/DetailBlog/Content';
 import UserInfo from '@/components/Blog/DetailBlog/UserInfo';
-import { getBlogById } from '@/data/blog';
+import { getBlogById } from '@/actions/blogs';
 import { getUserById } from '@/data/user';
-import { getComments } from '@/actions/comment';
 import { currentUserId } from '@/lib/auth';
 import { isFavoriteBlog } from '@/actions/blogs';
 
@@ -22,17 +21,10 @@ async function BlogDetail({ params }: props) {
   const currentBlog = await getBlogById(params.blogId);
   if (!currentBlog) return redirect('/');
 
-  const comments = await getComments(params.blogId);
-  if (!comments) return redirect('/');
+  const comments = currentBlog.comments;
+  const owner = currentBlog.user;
 
-  const commentsOwner = await Promise.all(
-    comments.map((comment) => getUserById(comment.owner)),
-  );
-
-  const owner = await getUserById(currentBlog.owner);
-  if (!owner) return redirect('/');
-
-  const isFavorite = await isFavoriteBlog(params.blogId, userId);
+  const isFavorite = await isFavoriteBlog(currentBlog.FavoriteBlog);
 
   return (
     <div className="flex flex-col md:flex-row gap-4 px-6 py-5 relative">
@@ -42,7 +34,6 @@ async function BlogDetail({ params }: props) {
         blogId={params.blogId}
         currentUser={currentUser}
         comments={comments}
-        commentsOwner={commentsOwner}
         isFavorite={isFavorite}
       />
       <Content

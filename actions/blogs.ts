@@ -1,6 +1,7 @@
 'use server';
 
 import { db } from '../lib/db';
+import { currentUserId } from '@/lib/auth';
 
 export const getBlogs = async () => {
   try {
@@ -12,18 +13,41 @@ export const getBlogs = async () => {
   }
 };
 
-export const isFavoriteBlog = async (
-  blogId: string,
-  userId: string,
-) => {
+export const getBlogById = async (id: string) => {
   try {
-    const favorite = await db.favoriteBlog.findFirst({
-      where: {
-        blogId,
-        userId,
+    const blog = await db.blog.findUnique({
+      where: { id },
+      include: {
+        user: true,
+        comments: { include: { user: true, Like: true } },
+        FavoriteBlog: true,
       },
     });
-    return favorite ? true : false;
+    return blog;
+  } catch {
+    return null;
+  }
+};
+
+export const isFavoriteBlog = async (
+  FavoriteByUser: {
+    id: string;
+    userId: string;
+    blogId: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }[],
+) => {
+  try {
+    const userId = await currentUserId();
+    let res = false;
+    for (const favorite of FavoriteByUser) {
+      if (favorite.userId === userId) {
+        res = true;
+        break;
+      }
+    }
+    return res;
   } catch (error) {
     console.log('[actions/blogs]', error);
     return false;
