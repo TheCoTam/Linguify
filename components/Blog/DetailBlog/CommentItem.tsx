@@ -2,7 +2,6 @@ import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-import styles from '@/styles/blog/commentmodal.module.css';
 import { calculateTimeComment } from '@/lib/utils';
 import { likeComment, unLikeComment } from '@/actions/comment';
 
@@ -49,8 +48,8 @@ function CommentItem({
     }
   };
   return (
-    <div className={styles['item-wrapper']}>
-      <div className={styles['item-image']}>
+    <div className="flex flex-row gap-4">
+      <div className="flex justify-center items-center w-[40px] h-[40px] rounded-full overflow-hidden">
         <Image
           src={
             commentOwner?.image
@@ -60,17 +59,16 @@ function CommentItem({
           alt=""
           width={40}
           height={40}
+          className="object-cover w-full h-full"
         />
       </div>
-      <div className={styles['item-content']}>
-        <div className={styles['item-name']}>
-          {commentOwner?.name}
-        </div>
+      <div className="flex flex-col gap-2">
+        <div className="font-semibold">{commentOwner?.name}</div>
         <div
           dangerouslySetInnerHTML={{ __html: content }}
-          className={styles['item-comment']}
+          className="px-3 py-2 bg-slate-200 rounded-lg"
         ></div>
-        <div className={styles['item-actions']}>
+        <div className="flex flex-row gap-3 relative text-xs font-semibold text-gray-400">
           <div>{calculateTimeComment(createdAt, updatedAt)}</div>
           {isLiked ? (
             <div

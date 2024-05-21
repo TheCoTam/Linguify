@@ -1,7 +1,5 @@
 import { Controller } from 'react-hook-form';
 
-import styles from '@/styles/blog/createblog.module.css';
-
 interface props {
   name: string;
   control: any;
@@ -9,19 +7,26 @@ interface props {
 }
 
 function TitleInput({ name, control, errorMessage }: props) {
-  const className = `${styles['title']} ${!!errorMessage ? styles['error-title'] : ''}`;
+  const className = `w-full pl-3 py-3 text-2xl bg-inherit focus:outline-none focus:bg-slate-200 rounded-lg ${
+    !!errorMessage ? 'border-2 border-red-500 border-dashed' : ''
+  }`;
 
   return (
-    <div className={styles['title-wrapper']}>
+    <div className="w-[80%]">
       <Controller
         name={name}
         control={control}
         rules={{ required: true }}
         render={({ field }) => (
-          <textarea value={field.value} onChange={field.onChange} placeholder="Title" className={className} />
+          <textarea
+            value={field.value}
+            onChange={field.onChange}
+            placeholder="Title"
+            className={className}
+          />
         )}
       />
-      <p className={styles['error-message']}>{errorMessage}</p>
+      <p className="text-red-500 text-xs">{errorMessage}</p>
     </div>
   );
 }

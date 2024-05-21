@@ -1,6 +1,4 @@
 import { currentUserId } from '@/lib/auth';
-import styles from '../../../styles/Dashboard/home.module.css';
-import Menu from '@/components/Dashboard/Menu';
 import { redirect } from 'next/navigation';
 import { getDashboardCourses } from '@/actions/get-dashboard-courses';
 import { CoursesList } from '@/components/ui/search/courses-list';

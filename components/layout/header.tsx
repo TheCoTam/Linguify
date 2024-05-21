@@ -8,12 +8,10 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { Button } from '../ui/button';
 
-import styles from '@/styles/layout/header.module.css';
 import { SearchInput } from './search-input';
 import Menu from './Menu/menu';
 import HeaderModal from '@/components/layout/Modal/headerModal';
 import GoBackButton from '../GoBackButton';
-import { useRouter } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { USER_MENU } from '@/data/header-navigation';
 
@@ -32,8 +30,6 @@ const pseudoNotification = [
   },
 ];
 
-
-
 function Header() {
   const currentUser = useCurrentUser();
 
@@ -51,12 +47,9 @@ function Header() {
   const closeHeaderModal = () => setHeaderModal(false);
 
   return (
-    <div className={styles['wrapper']}>
-      <div className={styles['logo']}>
-        <button
-          className={styles['menu-icon']}
-          onClick={openHeaderModal}
-        >
+    <div className="flex flex-row w-full h-[66px] mx-0 px-1 md:px-7 justify-between items-center z-20 sticky top-0 left-0 bg-slate-100 border-b-[1px]">
+      <div className="flex flex-row items-center lg:gap-3 mr-2 lg:mr-0">
+        <button className="lg:hidden" onClick={openHeaderModal}>
           <Image
             src="/icons/menuIcon.svg"
             width={30}
@@ -64,11 +57,7 @@ function Header() {
             alt="menuIcon"
           />
         </button>
-        {headerModal && (
-          <HeaderModal
-            closeModal={closeHeaderModal}
-          />
-        )}
+        {headerModal && <HeaderModal closeModal={closeHeaderModal} />}
         <div>
           <Link href="/">
             <Image
@@ -82,7 +71,7 @@ function Header() {
         {!isHomePage && <GoBackButton />}
       </div>
 
-      <div className={styles['search-bar']}>
+      <div className="hidden md:block">
         {isSearchPage && (
           <Suspense>
             <SearchInput />
@@ -90,66 +79,70 @@ function Header() {
         )}
       </div>
 
-      <div className={styles['actions']}>
-          <Fragment>
-            {isTeacherPage || isStudentPage ? (
-              <Link href="/">
-                <Button size="sm" variant="outline">
-                  Student mode
-                </Button>
-              </Link>
-            ) : (
-              <Link href="/teacher/courses">
-                <Button size="sm" variant="outline">
-                  Teacher mode
-                </Button>
-              </Link>
-            )}
+      <div className="flex flex-row items-center justify-end gap-2 ml-auto lg:ml-0">
+        <Fragment>
+          {isTeacherPage || isStudentPage ? (
+            <Link href="/">
+              <Button size="sm" variant="outline">
+                Student mode
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/teacher/courses">
+              <Button size="sm" variant="outline">
+                Teacher mode
+              </Button>
+            </Link>
+          )}
 
-            {/* Notification btn  */}
-            {isNotificationPage ? (
-              <Image
-                src="/icons/activeBellIcon.svg"
-                alt=""
-                width={30}
-                height={30}
-              />
-            ) : (
-              <Menu
-                title="Notifications"
-                btnTitle="Mark as read"
-                type="notification"
-                items={pseudoNotification}
-              >
-                <button className={styles['noti-icon']}>
-                  <Image
-                    src="/icons/bellIcon.svg"
-                    width={30}
-                    height={30}
-                    alt="bellIcon"
-                  />
-                </button>
-              </Menu>
-            )}
-
-            {/* User avatar */}
+          {/* Notification btn  */}
+          {isNotificationPage ? (
+            <Image
+              src="/icons/activeBellIcon.svg"
+              alt=""
+              width={30}
+              height={30}
+            />
+          ) : (
             <Menu
-              title={null}
-              btnTitle={null}
-              type="avatar"
-              items={USER_MENU}
+              title="Notifications"
+              btnTitle="Mark as read"
+              type="notification"
+              items={pseudoNotification}
             >
-              <div>
+              <button className="w-[30px] ml-4">
                 <Image
-                  className={styles['user-avatar']}
-                  src={currentUser?.image ? currentUser.image : '/images/no-avatar.png'}
-                  width={60}
-                  height={80}
-                  alt="User avatar"
+                  src="/icons/bellIcon.svg"
+                  width={30}
+                  height={30}
+                  alt="bellIcon"
                 />
-              </div>
+              </button>
             </Menu>
-          </Fragment>
+          )}
+
+          {/* User avatar */}
+          <Menu
+            title={null}
+            btnTitle={null}
+            type="avatar"
+            items={USER_MENU}
+          >
+            <div>
+              <Image
+                className="hidden lg:block lg:cursor-pointer lg:rounded-full lg:object-cover ml-2 lg:w-[50px] lg:h-[50px]"
+                src={
+                  currentUser?.image
+                    ? currentUser.image
+                    : '/images/no-avatar.png'
+                }
+                width={60}
+                height={80}
+                alt="User avatar"
+              />
+            </div>
+          </Menu>
+        </Fragment>
       </div>
     </div>
   );

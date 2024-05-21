@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
-import styles from '@/styles/blog/blog.module.css';
 import { addFavoriteBlog, removeFavoriteBlog } from '@/actions/blogs';
 import { calculateTime } from '@/lib/utils';
 
@@ -50,16 +49,22 @@ function BlogItem({
     }
   };
   return (
-    <div className={styles['item-wrapper']}>
-      <div className={styles['item-header']}>
-        <div className={styles['author']}>
-          <div className={styles['author-avatar']}>
-            <Image src={ownerImage} width={25} height={25} alt="" />
+    <div className="flex flex-col px-4 py-4 border-2 border-solid border-gray-300 rounded-lg overflow-hidden shadow">
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center gap-2 text-xs">
+          <div className="flex justify-center items-center w-8 h-8 rounded-full overflow-hidden border border-solid border-gray-300">
+            <Image
+              src={ownerImage}
+              width={25}
+              height={25}
+              alt=""
+              className="object-cover w-full h-full"
+            />
           </div>
           <div className="font-semibold text-base">{owner.name}</div>
         </div>
-        <div className={styles['btn-actions']}>
-          <div className={styles['bookmark-btn']}>
+        <div className="flex flex-row items-center gap-2">
+          <div className="cursor-pointer">
             {isFavoriteBlog ? (
               <Image
                 src="/icons/solidHeartIcon.svg"
@@ -78,7 +83,7 @@ function BlogItem({
               />
             )}
           </div>
-          <div className={styles['dots-btn']}>
+          <div className="cursor-pointer">
             <Image
               src="/icons/dotsIcon.svg"
               alt=""
@@ -88,26 +93,24 @@ function BlogItem({
           </div>
         </div>
       </div>
-      <div className={styles['item-body']}>
-        <div className={styles['item-info']}>
-          <div className={styles['info-title']} onClick={handleClick}>
+      <div className="flex flex-col-reverse md:flex-row gap-8 mt-4">
+        <div className="flex flex-col gap-4">
+          <div
+            className="text-lg font-bold max-h-[84px] line-clamp-3 hover:cursor-pointer"
+            onClick={handleClick}
+          >
             {data.title}
           </div>
           <div
-            className={styles['info-description']}
+            className="h-[48px] text-[15px] line-clamp-2"
             dangerouslySetInnerHTML={{ __html: data.content }}
           ></div>
         </div>
-        {data.image && (
-          <div className={styles['thumb']}>
-            <Image src={data.image} alt="" width={200} height={112} />
-          </div>
-        )}
       </div>
       <div className="text-xs text-gray-400">
         {calculateTime(data.updatedAt)}
       </div>
-      <div className='text-xs text-muted-foreground mt-2 italic'>
+      <div className="text-xs text-muted-foreground mt-2 italic">
         *You can click the title to see the post and add comment
       </div>
     </div>

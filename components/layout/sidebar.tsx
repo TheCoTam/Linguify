@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
-import styles from '@/styles/layout/sidebar.module.css';
 import {
   TEACHER_ROUTES,
   STUDENT_ROUTES,
@@ -16,8 +15,8 @@ function Sidebar() {
   const routes = isTeacherPage ? TEACHER_ROUTES : STUDENT_ROUTES;
 
   return (
-    <div className={styles['wrapper']}>
-      <div className={styles['menu']}>
+    <div className="hidden lg:block w-24 bg-slate-100 text-xs">
+      <div className="sticky top-[75px] left-0 z-10 gap-3 flex flex-col w-24 items-center font-semibold my-2">
         {routes.map((data, index) => {
           if (data.href) {
             const isActive = pathname === data.href;
@@ -26,12 +25,12 @@ function Sidebar() {
               <Link
                 key={index}
                 href={data.href}
-                className={`${styles['btn-wrapper']} ${
-                  styles[data.type]
-                } ${isActive ? styles['active'] : ''}`}
+                className={`flex flex-col justify-center items-center gap-1 rounded-[15px] w-[70px] h-[70px] hover:bg-slate-200 ${
+                  isActive ? 'bg-slate-300' : ''
+                }`}
               >
                 {data.topIcon && (
-                  <div className={styles['icon']}>
+                  <div>
                     <Image
                       src={data.topIcon}
                       width={25}
@@ -40,7 +39,7 @@ function Sidebar() {
                     />
                   </div>
                 )}
-                {data.title}
+                <div className="px-1">{data.title}</div>
               </Link>
             );
           }

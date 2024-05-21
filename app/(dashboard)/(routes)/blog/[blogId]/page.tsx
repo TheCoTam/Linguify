@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 
-import styles from '@/styles/blog/detailblog.module.css';
 import Content from '@/components/Blog/DetailBlog/Content';
 import UserInfo from '@/components/Blog/DetailBlog/UserInfo';
 import { getBlogById } from '@/data/blog';
@@ -36,7 +35,7 @@ async function BlogDetail({ params }: props) {
   const isFavorite = await isFavoriteBlog(params.blogId, userId);
 
   return (
-    <div className={styles['wrapper']}>
+    <div className="flex flex-col md:flex-row gap-4 px-6 py-5 relative">
       <UserInfo
         name={owner.name || 'Not found'}
         avt={owner.image ? owner.image : '/images/no-avatar.png'}

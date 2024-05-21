@@ -1,6 +1,3 @@
-
-import styles from '@/styles/blog/detailblog.module.css';
-
 interface IProps {
   title: string;
   content: string;
@@ -9,8 +6,8 @@ interface IProps {
 function Content(props: IProps) {
   const { title, content } = props;
   return (
-    <div className={styles['content-wrapper']}>
-      <div className={styles['content-title']}>{title}</div>
+    <div className="flex flex-col gap-[70px] w-[100%] lg:w-[70%] xl:w-[60%]">
+      <div className="font-bold text-4xl">{title}</div>
       <div dangerouslySetInnerHTML={{ __html: content }}></div>
     </div>
   );

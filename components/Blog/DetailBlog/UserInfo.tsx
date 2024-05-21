@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-import styles from '@/styles/blog/detailblog.module.css';
 import { addFavoriteBlog, removeFavoriteBlog } from '@/actions/blogs';
 // import CommentModal from './CommentModal/CommentModal';
 const CommentModal = dynamic(
@@ -58,16 +57,22 @@ function UserInfo({
     }
   };
   return (
-    <div className={styles['user-info-wrapper']}>
-      <div className={styles['user-info-content']}>
-        <div className={styles['section1']}>
-          <div className={styles['user-info-image']}>
-            <Image src={avt} alt="avatar" width={50} height={50} />
+    <div className="flex justify-center w-full md:w-[25%]">
+      <div className="w-max h-max sticky top-[80px]">
+        <div className="flex flex-row items-center gap-3">
+          <div className="flex justify-center items-center w-[50px] h-[50px] rounded-full overflow-hidden">
+            <Image
+              src={avt}
+              alt="avatar"
+              width={50}
+              height={50}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div>{name}</div>
         </div>
         <hr className="my-3" />
-        <div className={styles['section2']}>
+        <div className="flex flex-row justify-center items-center gap-[50px]">
           {isFavorite ? (
             <Image
               src="/icons/solidHeartIcon.svg"
@@ -75,6 +80,7 @@ function UserInfo({
               width={24}
               height={24}
               onClick={handleRemoveFavorite}
+              className="hover:brightness-95 cursor-pointer"
             />
           ) : (
             <Image
@@ -83,6 +89,7 @@ function UserInfo({
               width={24}
               height={24}
               onClick={handleAddFavorite}
+              className="hover:brightness-50 cursor-pointer"
             />
           )}
           <Image
@@ -91,6 +98,7 @@ function UserInfo({
             width={24}
             height={24}
             onClick={openCommentModal}
+            className="hover:brightness-50 cursor-pointer"
           />
         </div>
       </div>

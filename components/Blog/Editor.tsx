@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import 'react-quill/dist/quill.snow.css';
 
-import styles from '@/styles/blog/createblog.module.css';
+import styles from '@/styles/editor.module.css';
 import ReactQuill, { ReactQuillProps } from 'react-quill';
 
 interface props {
@@ -13,9 +13,7 @@ interface props {
   className?: string;
 }
 
-function Editor(
-  { value, onChange, height, className }: props,
-) {
+function Editor({ value, onChange, height, className }: props) {
   const ReactQuill = useMemo(
     () => dynamic(() => import('react-quill'), { ssr: false }),
     [],

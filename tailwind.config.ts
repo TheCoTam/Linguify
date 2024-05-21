@@ -4,8 +4,13 @@ import { withUt } from 'uploadthing/tw';
 
 const config = withUt({
   darkMode: ['class'],
-  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}',
-  './styles/**/*.{ts,tsx}' ],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+    './styles/**/*.{ts,tsx}',
+  ],
   prefix: '',
   theme: {
     screens: {
@@ -61,13 +66,13 @@ const config = withUt({
         sm: 'calc(var(--radius) - 4px)',
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
         },
         floatLeftToRight: {
           '0%': {
@@ -97,9 +102,12 @@ const config = withUt({
         floatRightToLeft: 'floatRightToLeft 0.5s ease-out',
         fadeIn: 'fadeIn 0.5s ease-out',
       },
+      minHeight: {
+        'body-height': 'calc(100vh - 4rem)',
+      },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config);
 
 export default config;

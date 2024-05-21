@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import Header from './header';
-import styles from '@/styles/layout/menu.module.css';
 
 interface IProps {
   title: string | null;
@@ -13,22 +12,42 @@ interface IProps {
 function Course(props: IProps) {
   const { title, btnTitle, items, href } = props;
   return (
-    <div className={styles['menu-list']}>
+    <div className="flex flex-col gap-1 bg-white  rounded-lg  overflow-hidden w-[380px] max-h-[70vw] pb-2">
       <Header title={title} btnTitle={btnTitle} href={href} />
-      <div className={styles['body']}>
+      <div className="flex flex-col gap-3 max-h-[500px] overflow-y-auto">
         {items.map((item, index) => {
           return (
-            <div className={styles['course-wrapper']} key={index}>
-              <div className={styles['course-image']}>
-                <Image src={item.image} width={120} height={67.5} alt={item.title} />
+            <div
+              className="flex flex-row mx-2 px-3 py-2 gap-2 rounded-lg hover:bg-slate-100"
+              key={index}
+            >
+              <div className="flex justify-center items-center rounded-lg overflow-hidden cursor-pointer flex-shrink-0">
+                <Image
+                  src={item.image}
+                  width={120}
+                  height={67.5}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className={styles['course-detail']}>
-                <div className={styles['course-title']}>{item.title}</div>
-                {item.desc && <div className={styles['course-desc']}>{item.desc}</div>}
-                {item.lastComplete && <div className={styles['lastComplete']}>{item.lastComplete}</div>}
+              <div>
+                <div className="font-semibold cursor-pointer">
+                  {item.title}
+                </div>
+                {item.desc && (
+                  <div className="text-sm">{item.desc}</div>
+                )}
+                {item.lastComplete && (
+                  <div className="text-xs mt-1">
+                    {item.lastComplete}
+                  </div>
+                )}
                 {item.progress && (
-                  <div className={styles['progressBar']}>
-                    <div className={styles['inProgress']} style={{ width: `${item.progress}%` }}></div>
+                  <div className="mt-2 w-52 h-[6px] bg-slate-400 rounded-full overflow-hidden">
+                    <div
+                      className="h-[100%] bg-orange-500"
+                      style={{ width: `${item.progress}%` }}
+                    ></div>
                   </div>
                 )}
               </div>

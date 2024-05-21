@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
 
-import styles from '@/styles/blog/createblog.module.css';
 import TitleInput from '@/components/Blog/CreateBlog/TitleInput';
 import ContentInput from '@/components/Blog/CreateBlog/ContentInput';
 import { NewBlogSchema } from '@/schemas';
@@ -38,22 +37,22 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className={styles['wrapper']}>
+    <div className="flex justify-center items-center px-10 py-7">
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={styles['form-wrapper']}
+        className="flex flex-col gap-3 w-[80%]"
       >
-        <div className={styles['section1']}>
+        <div className="flex flex-row justify-between items-center">
           <TitleInput
             name="title"
             control={form.control}
             errorMessage={form.formState.errors.title?.message}
           />
           <button
-            className={styles['submit-button']}
+            className="w-max px-3 py-2 bg-orange-200 hover:bg-orange-300 active:bg-orange-400 border-[3px] border-dashed rounded-2xl border-slate-400 hover:border-slate-500 active:border-slate-600"
             disabled={form.formState.isSubmitting}
           >
-            Publish 
+            Publish
           </button>
         </div>
         <ContentInput

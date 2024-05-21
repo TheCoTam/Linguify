@@ -6,7 +6,6 @@ import * as z from 'zod';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-import styles from '@/styles/blog/commentmodal.module.css';
 import CommentItem from '../CommentItem';
 import Editor from '../../Editor';
 import Heading from './Heading';
@@ -63,22 +62,31 @@ function CommentModal({
   };
 
   return (
-    <div className={styles['wrapper']} onClick={closeModal}>
+    <div
+      className="flex justify-center lg:block fixed top-0 left-0 w-full h-full py-9 lg:py-0 bg-black bg-opacity-30 z-50 animate-fadeIn"
+      onClick={closeModal}
+    >
       <div
-        className={styles['content']}
+        className="flex flex-col relative w-[95%] md:w-[90%] lg:w-[55%] xl:w-[45%] lg:h-[100vh] px-10 py-6 lg:ml-auto bg-white rounded-2xl lg:rounded-none animate-floatRightToLeft"
         onClick={(e) => e.stopPropagation()}
       >
         <CloseButton onClick={closeModal} />
 
         <Heading numComments={comments?.length} />
 
-        <div className={styles['write-comment']}>
-          <div className={styles['user-image']}>
-            <Image src={userImage} alt="" width={40} height={40} />
+        <div className="flex flex-row gap-4 my-12 w-full">
+          <div className="flex justify-center items-center w-[50px] h-[50px] rounded-full overflow-hidden shrink-0">
+            <Image
+              src={userImage}
+              alt=""
+              width={40}
+              height={40}
+              className="object-cover w-full h-full"
+            />
           </div>
           {!showEditor ? (
             <div
-              className={styles['pseudoInput']}
+              className="w-full text-gray-400 border-b hover:cursor-text"
               onClick={() => setShowEditor(true)}
             >
               Comment something...
@@ -103,25 +111,25 @@ function CommentModal({
               <p className="text-sm text-red-500 mt-2">
                 {form.formState.errors.content?.message}
               </p>
-              <div className={styles['form-button']}>
+              <div className="flex items-center gap-4 mt-4">
                 <button
                   type="button"
                   onClick={() => setShowEditor(false)}
                 >
-                  Huỷ
+                  Cancel
                 </button>
                 <button
                   type="submit"
-                  className={styles['submit-button']}
+                  className="rounded-full bg-orange-300 hover:bg-orange-400 active:bg-orange-500 px-4 py-2 text-white font-semibold"
                 >
-                  Bình luận
+                  Comment
                 </button>
               </div>
             </form>
           )}
         </div>
 
-        <div className={styles['comments']}>
+        <div className="flex flex-col gap-4">
           {comments?.map((comment, index) => {
             let isLiked = false;
 

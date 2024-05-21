@@ -3,7 +3,6 @@ import Course from './course';
 import Notification from './notification';
 import Avatar from './avatar';
 import SidebarMenu from './sidebarMenu';
-import { User, UserRole } from '@prisma/client';
 
 interface IProps {
   children: React.ReactNode;
@@ -21,14 +20,23 @@ function Menu(props: IProps) {
     if (type === 'course') {
       return (
         <div>
-          <Course title={title} btnTitle={btnTitle} href={href} items={items} />
+          <Course
+            title={title}
+            btnTitle={btnTitle}
+            href={href}
+            items={items}
+          />
         </div>
       );
     }
     if (type === 'notification') {
       return (
         <div>
-          <Notification title={title} btnTitle={btnTitle} items={items} />
+          <Notification
+            title={title}
+            btnTitle={btnTitle}
+            items={items}
+          />
         </div>
       );
     }

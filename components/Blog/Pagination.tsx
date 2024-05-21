@@ -1,7 +1,5 @@
 import Link from 'next/link';
 
-import styles from '@/styles/blog/blog.module.css';
-
 interface IProps {
   totalBlogs: number;
   page: number;
@@ -26,12 +24,12 @@ function Pagiantion(props: IProps) {
   }
   return (
     <div>
-      <div className={styles['pagination-wrapper']}>
-        <div className={styles['pagination']}>
+      <div className="flex justify-center items-center w-full mt-6">
+        <div className="flex flex-row items-center justify-center gap-4 w-max bg-slate-200 border border-solid border-gray-400 rounded-lg overflow-hidden">
           {page === 1 ? (
-            <div className={styles['button-disabled']}>Previous</div>
+            <div className="text-gray-400 px-2">Previous</div>
           ) : (
-            <Link href={`?page=${prePage}`} className={styles['pagination-button']}>
+            <Link href={`?page=${prePage}`} className="px-2">
               Previous
             </Link>
           )}
@@ -40,16 +38,20 @@ function Pagiantion(props: IProps) {
             <Link
               key={index}
               href={`?page=${pageNumber}`}
-              className={`${styles['page-number']} ${page === pageNumber ? styles['active-pagination'] : ''}`}
+              className={`flex justify-center items-center w-[30px] ${
+                page === pageNumber
+                  ? 'text-white bg-gray-400 cursor-default'
+                  : ''
+              }`}
             >
               {pageNumber}
             </Link>
           ))}
 
           {page === totalPages ? (
-            <div className={styles['button-disabled']}>Next</div>
+            <div className="text-gray-400 px-2">Next</div>
           ) : (
-            <Link href={`?page=${nextPage}`} className={styles['pagination-button']}>
+            <Link href={`?page=${nextPage}`} className="px-2">
               Next
             </Link>
           )}

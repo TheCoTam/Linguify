@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 
-import styles from '@/styles/blog/blog.module.css';
 import Pagiantion from '@/components/Blog/Pagination';
 import Header from '@/components/Blog/Header';
 import NoBlog from '@/components/Blog/NoBlog';
@@ -37,14 +36,14 @@ async function Blog({ searchParams }: props) {
   );
 
   return (
-    <div className={styles['wrapper']}>
+    <div className="flex flex-col justify-center px-10 pt-6 mb-6">
       <Header />
 
       {!data.length ? (
         <NoBlog />
       ) : (
-        <div className={styles['content']}>
-          <div className={styles['section1']}>
+        <div className="flex flex-col-reverse lg:flex-row gap-8 w-full">
+          <div className="flex flex-col gap-4 w-full lg:w-[75%] xl:w-[60%]">
             {/* Blogs data from server */}
             {data
               ?.slice(

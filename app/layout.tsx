@@ -23,9 +23,7 @@ export default function RootLayout({
         <ConfettiProvider />
         <ToastProvider />
         <RoomProvider>
-          <CallIdProvider>
-            {children}
-          </CallIdProvider>
+          <CallIdProvider>{children}</CallIdProvider>
         </RoomProvider>
       </body>
     </html>
