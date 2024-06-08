@@ -21,7 +21,6 @@ async function BlogDetail({ params }: props) {
   const currentBlog = await getBlogById(params.blogId);
   if (!currentBlog) return redirect('/');
 
-  const comments = currentBlog.comments;
   const owner = currentBlog.user;
 
   const isFavorite = await isFavoriteBlog(currentBlog.FavoriteBlog);
@@ -33,7 +32,7 @@ async function BlogDetail({ params }: props) {
         avt={owner.image ? owner.image : '/images/no-avatar.png'}
         blogId={params.blogId}
         currentUser={currentUser}
-        comments={comments}
+        comments={currentBlog.comments}
         isFavorite={isFavorite}
       />
       <Content

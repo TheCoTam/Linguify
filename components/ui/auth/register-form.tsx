@@ -5,7 +5,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { RegisterSchema } from '@/schemas';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '../button';
 import { CardWrapper } from '@/components/ui/auth/card-wrapper';
@@ -35,8 +42,8 @@ export const RegisterForm = () => {
     startTransition(() => {
       //Server actions from actions/login
       register(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+        setError(data?.error);
+        setSuccess(data?.success);
       });
     });
   };
@@ -49,7 +56,10 @@ export const RegisterForm = () => {
       showSocial
     >
       <Form {...form}>
-        <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          className="space-y-6"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -58,7 +68,11 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="John Doe" disabled={isPending} />
+                    <Input
+                      {...field}
+                      placeholder="John Doe"
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -71,7 +85,11 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="example@email.com" disabled={isPending} />
+                    <Input
+                      {...field}
+                      placeholder="example@email.com"
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -84,7 +102,12 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="********" type="password" disabled={isPending} />
+                    <Input
+                      {...field}
+                      placeholder="********"
+                      type="password"
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,7 +120,12 @@ export const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Confirm password</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="********" type="password" disabled={isPending} />
+                    <Input
+                      {...field}
+                      placeholder="********"
+                      type="password"
+                      disabled={isPending}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +134,11 @@ export const RegisterForm = () => {
           </div>
           <FormSuccess message={success} />
           <FormError message={error} />
-          <Button type="submit" className="w-full" disabled={isPending}>
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isPending}
+          >
             Create an account
           </Button>
         </form>

@@ -47,12 +47,31 @@ export function calculateTime(time: Date) {
   let timeCourseText = '';
 
   if (diffInYears > 0) {
-    timeCourseText = `${diffInYears} ${(diffInYears < 2) ? 'day': 'days'} ago`;
+    timeCourseText = `${diffInYears} ${
+      diffInYears < 2 ? 'day' : 'days'
+    } ago`;
   } else if (diffInMonths > 0) {
-    timeCourseText = `${diffInMonths} ${diffInMonths < 2 ? 'month' : 'months'} ago`;
+    timeCourseText = `${diffInMonths} ${
+      diffInMonths < 2 ? 'month' : 'months'
+    } ago`;
   } else {
-    timeCourseText = `${diffInDays} ${diffInDays < 2 ? 'day': 'days'} ago`;
+    timeCourseText = `${diffInDays} ${
+      diffInDays < 2 ? 'day' : 'days'
+    } ago`;
   }
 
   return timeCourseText;
+}
+
+export function calculateTimeJoined(time?: Date) {
+  if (!time) return 'Some time ago';
+
+  const date = new Date(time);
+  const day = date.getDate();
+  const monthNames = date.toLocaleString('default', {
+    month: 'long',
+  });
+  const year = date.getFullYear();
+
+  return `${day} ${monthNames} ${year}`;
 }

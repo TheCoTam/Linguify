@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { Loader } from 'lucide-react';
 
 import styles from '@/styles/editor.module.css';
 import CommentItem from '../CommentItem';
@@ -120,12 +121,18 @@ function CommentModal({
                 >
                   Cancel
                 </button>
-                <button
-                  type="submit"
-                  className="rounded-full bg-orange-300 hover:bg-orange-400 active:bg-orange-500 px-4 py-2 text-white font-semibold"
-                >
-                  Comment
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="submit"
+                    className="rounded-full bg-orange-300 hover:bg-orange-400 active:bg-orange-500 px-4 py-2 text-white font-semibold"
+                    disabled={form.formState.isSubmitting}
+                  >
+                    <div>Comment</div>
+                  </button>
+                  {form.formState.isSubmitting && (
+                    <Loader className="animate-spin w-[16px] text-slate-300" />
+                  )}
+                </div>
               </div>
             </form>
           )}

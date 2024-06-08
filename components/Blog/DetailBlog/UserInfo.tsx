@@ -36,7 +36,7 @@ function UserInfo({
   const closeCommentModal = () => setCommentModal(false);
   const handleAddFavorite = async () => {
     try {
-      const res = await addFavoriteBlog(blogId, currentUser.id);
+      const res = await addFavoriteBlog(blogId);
       toast.success('Added to favorites');
       router.refresh();
     } catch (error) {
@@ -46,7 +46,7 @@ function UserInfo({
   };
   const handleRemoveFavorite = async () => {
     try {
-      const res = await removeFavoriteBlog(blogId, currentUser.id);
+      const res = await removeFavoriteBlog(blogId);
       toast.success('Removed from favorite');
       router.refresh();
     } catch (error) {

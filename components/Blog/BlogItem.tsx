@@ -11,15 +11,9 @@ interface props {
   data: any;
   owner: any;
   isFavoriteBlog: boolean;
-  currentUserId: string;
 }
 
-function BlogItem({
-  data,
-  owner,
-  isFavoriteBlog,
-  currentUserId,
-}: props) {
+function BlogItem({ data, owner, isFavoriteBlog }: props) {
   const router = useRouter();
   const handleClick = () => {
     router.push(`/blog/${data.id}`);
@@ -30,7 +24,7 @@ function BlogItem({
 
   const handleAddFavorite = async () => {
     try {
-      const res = await addFavoriteBlog(data.id, currentUserId);
+      const res = await addFavoriteBlog(data.id);
       toast.success('Added to favorites');
       router.refresh();
     } catch (error) {
@@ -40,7 +34,7 @@ function BlogItem({
   };
   const handleRemoveFavorite = async () => {
     try {
-      const res = await removeFavoriteBlog(data.id, currentUserId);
+      await removeFavoriteBlog(data.id);
       toast.success('Remove from favorites');
       router.refresh();
     } catch (error) {

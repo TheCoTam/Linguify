@@ -5,7 +5,10 @@ import { currentUserId } from '@/lib/auth';
 
 export const getBlogs = async () => {
   try {
-    const blogs = await db.blog.findMany();
+    const blogs = await db.blog.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: { user: true, FavoriteBlog: true },
+    });
     return blogs;
   } catch (error) {
     console.log('[actions/blogs]', error);
@@ -54,11 +57,10 @@ export const isFavoriteBlog = async (
   }
 };
 
-export const addFavoriteBlog = async (
-  blogId: string,
-  userId: string,
-) => {
+export const addFavoriteBlog = async (blogId: string) => {
   try {
+    const userId = await currentUserId();
+    if (!userId) return null;
     const favorite = await db.favoriteBlog.create({
       data: {
         blogId,
@@ -72,11 +74,10 @@ export const addFavoriteBlog = async (
   }
 };
 
-export const removeFavoriteBlog = async (
-  blogId: string,
-  userId: string,
-) => {
+export const removeFavoriteBlog = async (blogId: string) => {
   try {
+    const userId = await currentUserId();
+    if (!userId) return null;
     const favorite = await db.favoriteBlog.deleteMany({
       where: {
         blogId,

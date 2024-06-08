@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { Ellipsis } from 'lucide-react';
 
 import { calculateTimeComment } from '@/lib/utils';
 import { likeComment, unLikeComment } from '@/actions/comment';
@@ -64,10 +65,13 @@ function CommentItem({
       </div>
       <div className="flex flex-col gap-2">
         <div className="font-semibold">{commentOwner?.name}</div>
-        <div
-          dangerouslySetInnerHTML={{ __html: content }}
-          className="px-3 py-2 bg-slate-200 rounded-lg"
-        ></div>
+        <div className="flex items-center gap-1 group">
+          <div
+            dangerouslySetInnerHTML={{ __html: content }}
+            className="px-3 py-2 bg-slate-200 rounded-xl"
+          ></div>
+          <Ellipsis className="hidden group-hover:block p-1 cursor-pointer hover:bg-slate-100 rounded-full active:bg-slate-200 active:scale-90" />
+        </div>
         <div className="flex flex-row gap-3 relative text-xs font-semibold text-gray-400">
           <div>{calculateTimeComment(createdAt, updatedAt)}</div>
           {isLiked ? (
@@ -82,6 +86,7 @@ function CommentItem({
               Like
             </div>
           )}
+          <div className="cursor-pointer">Reply</div>
 
           {numLikes !== 0 && (
             <div className="absolute flex flex-row gap-1 w-max p-[2px] -right-[5px] -top-[17px] bg-slate-100 rounded-2xl">

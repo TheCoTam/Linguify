@@ -14,20 +14,20 @@ async function FavoriteBlogs() {
 
   return (
     <div className="flex flex-col px-[20px] md:px-[40px] lg:px-[70px] py-[30px] gap-[50px]">
-      <div className="font-bold text-3xl">Bài viết yêu thích</div>
+      <div className="font-bold text-3xl">Favorited Blogs</div>
       <div className="flex flex-col gap-3 w-full md:w-[90%] lg:w-[80%] pl-[20px]">
         {favoriteBlogs.length === 0 ? (
           <div className="flex flex-col gap-3">
             <div className="text-sm text-gray-600">
-              Bạn chưa yêu thích bài viết nào.
+              You have not favorited any blogs yet.
             </div>
             <div className="text-sm text-gray-600">
-              Bấm vào đây để{' '}
+              Click here to{' '}
               <Link
                 href="/blog"
                 className="text-red-500 font-semibold underline"
               >
-                xem các bài viết nổi bật
+                view featured blogs
               </Link>
               .
             </div>
@@ -40,7 +40,6 @@ async function FavoriteBlogs() {
                 data={favoriteBlog.blog}
                 owner={favoriteBlog.user}
                 isFavoriteBlog={true}
-                currentUserId={userId}
               />
             );
           })

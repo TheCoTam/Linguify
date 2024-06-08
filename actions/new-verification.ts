@@ -37,5 +37,12 @@ export const newVerification = async (token: string) => {
     where: { id: existingToken.id },
   });
 
+  await db.notification.create({
+    data: {
+      userId: existingUser.id,
+      message: 'Welcome to Linguify!',
+    },
+  });
+
   return { success: 'Email verified!' };
 };

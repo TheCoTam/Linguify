@@ -5,9 +5,7 @@ import Header from '@/components/Blog/Header';
 import NoBlog from '@/components/Blog/NoBlog';
 import BlogItem from '@/components/Blog/BlogItem';
 import { getBlogs } from '@/actions/blogs';
-import { getUserById } from '@/data/user';
 import { isFavoriteBlog } from '@/actions/blogs';
-import { currentUserId } from '@/lib/auth';
 
 interface props {
   searchParams?: { page?: string };
@@ -24,16 +22,6 @@ async function Blog({ searchParams }: props) {
   if (!data) {
     redirect('/');
   }
-  const blogOwners = await Promise.all(
-    data.map((blog: any) => getUserById(blog.owner)),
-  );
-
-  const userId = await currentUserId();
-  if (!userId) return redirect('/');
-
-  const favoriteBlogs = await Promise.all(
-    data.map((blog: any) => isFavoriteBlog(blog.id, userId)),
-  );
 
   return (
     <div className="flex flex-col justify-center px-10 pt-6 mb-6">
@@ -50,19 +38,21 @@ async function Blog({ searchParams }: props) {
                 perPage * (page - 1),
                 perPage * (page - 1) + perPage,
               )
-              .map((item: any, index: any) => {
+              .map(async (item: any, index: any) => {
                 if (!item.avt) {
                   item.avt = '/images/no-image.png';
                 }
-                const currentBlogIndex = (page - 1) * perPage + index;
+
+                const isFavorited = await isFavoriteBlog(
+                  item.FavoriteBlog,
+                );
 
                 return (
                   <BlogItem
                     key={index}
                     data={item}
-                    owner={blogOwners[currentBlogIndex]}
-                    isFavoriteBlog={favoriteBlogs[currentBlogIndex]}
-                    currentUserId={userId}
+                    owner={item.user}
+                    isFavoriteBlog={isFavorited}
                   />
                 );
               })}

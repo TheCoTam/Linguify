@@ -15,27 +15,12 @@ import GoBackButton from '../GoBackButton';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { USER_MENU } from '@/data/header-navigation';
 
-const pseudoNotification = [
-  {
-    image:
-      'https://files.fullstack.edu.vn/f8-prod/user_photos/276294/6396eb8215dda.jpg',
-    content: 'Welcome to Linguify!',
-    createdTime: '2 days ago',
-  },
-  {
-    image:
-      'https://files.fullstack.edu.vn/f8-prod/user_photos/276294/6396eb8215dda.jpg',
-    content: "Let's unlock the power of language with Linguify",
-    createdTime: 'today',
-  },
-];
-
 function Header() {
   const currentUser = useCurrentUser();
 
   const pathName = usePathname();
   const isHomePage = pathName === '/';
-  const isNotificationPage = pathName === '/me/notification';
+  const isNotificationPage = pathName === '/notifications';
   const isSearchPage = pathName === '/search';
 
   const isTeacherPage = pathName?.startsWith('/teacher');
@@ -104,21 +89,14 @@ function Header() {
               height={30}
             />
           ) : (
-            <Menu
-              title="Notifications"
-              btnTitle="Mark as read"
-              type="notification"
-              items={pseudoNotification}
-            >
-              <button className="w-[30px] ml-4">
-                <Image
-                  src="/icons/bellIcon.svg"
-                  width={30}
-                  height={30}
-                  alt="bellIcon"
-                />
-              </button>
-            </Menu>
+            <Link href="/notifications">
+              <Image
+                src="/icons/bellIcon.svg"
+                width={30}
+                height={30}
+                alt="bellIcon"
+              />
+            </Link>
           )}
 
           {/* User avatar */}
