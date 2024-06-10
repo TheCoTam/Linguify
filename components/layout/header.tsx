@@ -108,14 +108,14 @@ function Header() {
           >
             <div>
               <Image
-                className="hidden lg:block lg:cursor-pointer lg:rounded-full lg:object-cover ml-2 lg:w-[50px] lg:h-[50px]"
+                className="hidden lg:block lg:cursor-pointer lg:rounded-full lg:object-cover ml-2 lg:w-[30px] lg:h-[30px]"
                 src={
                   currentUser?.image
                     ? currentUser.image
                     : '/images/no-avatar.png'
                 }
-                width={60}
-                height={80}
+                width={30}
+                height={30}
                 alt="User avatar"
               />
             </div>

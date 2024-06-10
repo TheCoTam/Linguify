@@ -15,7 +15,7 @@ function Avatar(props: IProps) {
     <div className="flex flex-col gap-1 bg-white  rounded-lg  overflow-hidden w-[230px]">
       <div className="px-6 py-2">
         <div className="flex flex-row">
-          <div className="w-12 h-12 rounded-full overflow-hidden">
+          <div className="flex justify-center items-center w-12 h-12 rounded-full overflow-hidden">
             <Image
               src={
                 currentUser?.image
@@ -28,11 +28,8 @@ function Avatar(props: IProps) {
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="flex flex-col ml-3">
-            <div className="text-sm font-semibold">
-              {currentUser?.name}
-            </div>
-            <div className="text-xs mt-1">{currentUser?.name}</div>
+          <div className="flex justify-center items-center ml-3 font-semibold">
+            {currentUser?.name}
           </div>
         </div>
         <hr className="my-2" />
@@ -41,7 +38,7 @@ function Avatar(props: IProps) {
             {item.href ? (
               <Link
                 href={item.href}
-                className="px-2 py-[10px] rounded-xl hover:font-semibold active:bg-slate-100 text-sm text-gray-600  cursor-pointer"
+                className="px-2 py-[10px] rounded-xl hover:font-semibold hover:bg-slate-50 active:bg-slate-100 text-sm text-gray-600  cursor-pointer"
               >
                 {item.title}
               </Link>

@@ -1,8 +1,11 @@
+'use server';
+
 import { redirect } from 'next/navigation';
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { getNotifications } from '@/data/notifications';
-import { Car } from 'lucide-react';
+import Item from '@/components/Me/NotificationItem';
+import Header from '@/components/Me/NotificationHeader';
 
 async function NotificationPage() {
   const notifications = await getNotifications();
@@ -10,11 +13,7 @@ async function NotificationPage() {
 
   return (
     <Card className="w-[650px] shadow-md">
-      <CardHeader>
-        <p className="text-2xl font-semibold text-center">
-          Notifications
-        </p>
-      </CardHeader>
+      <Header />
       <CardContent>
         {notifications.length === 0 ? (
           <div className="flex justify-center items-center min-h-[300px]">
@@ -22,9 +21,7 @@ async function NotificationPage() {
           </div>
         ) : (
           notifications.map((notification) => {
-            return (
-              <div key={notification.id}> this is a notification</div>
-            );
+            return <Item key={notification.id} data={notification} />;
           })
         )}
       </CardContent>

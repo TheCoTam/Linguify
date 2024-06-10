@@ -1,25 +1,16 @@
-'use client';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
+import { Ellipsis } from 'lucide-react';
 
-import styles from '@/styles/Me/Notification.module.css';
-import { readAllNotifications } from '@/actions/notifications';
+import { CardHeader } from '@/components/ui/card';
+import Menu from '@/components/Me/Menu';
 
 function Header() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    readAllNotifications();
-    toast.success('Đánh dấu thành công!');
-    router.refresh();
-  };
   return (
-    <div className={styles['header']}>
-      <div className={styles['header-title']}>Thông báo</div>
-      <div className={styles['header-button']} onClick={handleClick}>
-        Đánh dấu là đã đọc
-      </div>
-    </div>
+    <CardHeader className="flex flex-row justify-between">
+      <p className="text-2xl font-semibold">Notifications</p>
+      <Menu>
+        <Ellipsis className="cursor-pointer hover:bg-slate-100 rounded-full active:bg-slate-200" />
+      </Menu>
+    </CardHeader>
   );
 }
 
