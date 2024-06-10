@@ -16,3 +16,17 @@ export const readAllNotifications = async () => {
     return { error: 'Something went wrong!' };
   }
 };
+
+export const readNotification = async (id: string) => {
+  try {
+    await db.notification.update({
+      where: { id },
+      data: { isRead: true },
+    });
+    return { success: 'Mark notification as read successfully!' };
+    // return null;
+  } catch (error) {
+    console.log('[actions/notifications]', error);
+    return { error: 'Something went wrong!' };
+  }
+};

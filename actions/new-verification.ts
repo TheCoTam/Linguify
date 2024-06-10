@@ -3,7 +3,6 @@
 import { db } from '@/lib/db';
 import { getUserByEmail } from '@/data/user';
 import { getVerificationTokenByToken } from '@/data/verification-token';
-import { error } from 'console';
 
 export const newVerification = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
@@ -25,6 +24,27 @@ export const newVerification = async (token: string) => {
     return { error: 'Email does not exist!' };
   }
 
+  if (!existingUser.emailVerified) {
+    await db.notification.create({
+      data: {
+        userId: existingUser.id,
+        image: '/images/linguify-logo-small.png',
+        message: 'Welcome to Linguify! ️🎉️🎉️🎉',
+      },
+    });
+  }
+
+  if (existingUser.email !== existingToken.email) {
+    await db.notification.create({
+      data: {
+        userId: existingUser.id,
+        image: '/images/linguify-logo-small.png',
+        message: 'You have changed your email!',
+        href: '/settings',
+      },
+    });
+  }
+
   await db.user.update({
     where: { id: existingUser.id },
     data: {
@@ -35,13 +55,6 @@ export const newVerification = async (token: string) => {
 
   await db.verificationToken.delete({
     where: { id: existingToken.id },
-  });
-
-  await db.notification.create({
-    data: {
-      userId: existingUser.id,
-      message: 'Welcome to Linguify!',
-    },
   });
 
   return { success: 'Email verified!' };

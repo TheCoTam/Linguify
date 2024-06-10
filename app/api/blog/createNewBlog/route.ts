@@ -33,6 +33,15 @@ export async function POST(req: Request) {
       },
     });
 
+    await db.notification.create({
+      data: {
+        userId: owner,
+        message: 'You created a new blog post',
+        image: '/images/linguify-logo-small.png',
+        href: `/blog/${blog.id}`,
+      },
+    });
+
     return NextResponse.json(blog);
   } catch (error) {
     console.log('[createNewBlog]', error);

@@ -8,7 +8,7 @@ export const sendTwoFactorTokenEmail = async (
   token: string,
 ) => {
   await resend.emails.send({
-    from: 'Linguify <support@linguify.fun>',
+    from: 'Linguify <mail@linguify.id.vn>',
     to: email,
     subject: '2 Factor Authentication code',
     html: `<p>Use this code to log in: ${token}</p>`,
@@ -21,7 +21,7 @@ export const sendPasswordResetEmail = async (
 ) => {
   const resetLink = `${domain}/auth/new-password?token=${token}`;
   await resend.emails.send({
-    from: 'Linguify <support@linguify.fun>',
+    from: 'Linguify <mail@linguify.id.vn>',
     to: email,
     subject: 'Reset your password',
     html: `<p>Click <a href="${resetLink}">here</a> to reset your password!</p>`,
@@ -35,10 +35,10 @@ export const sendVerificationEmail = async (
   const confirmLink = `${domain}/auth/new-verification?token=${token}`;
 
   const { data, error } = await resend.emails.send({
-    from: 'delivered@resend.dev',
+    from: 'Linguify <mail@linguify.id.vn>',
     to: email,
     subject: 'Confirm your email',
     html: `<p>Click <a href="${confirmLink}">here</a> to confirm your email!</p>`,
   });
-  console.log(data, error);
+  if (error) console.error('[mail.ts]', error);
 };
