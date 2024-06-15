@@ -11,9 +11,16 @@ interface props {
   onChange: (value: string) => void;
   height?: number;
   className?: string;
+  disabled?: boolean;
 }
 
-function Editor({ value, onChange, height, className }: props) {
+function Editor({
+  value,
+  onChange,
+  height,
+  className,
+  disabled,
+}: props) {
   const ReactQuill = useMemo(
     () => dynamic(() => import('react-quill'), { ssr: false }),
     [],
@@ -58,7 +65,8 @@ function Editor({ value, onChange, height, className }: props) {
         onChange={onChange}
         placeholder="Write here"
         className={`${styles['editor']} ${className}`}
-        style={{ minHeight: `${height}px` }}
+        style={{ height: `${height}px` }}
+        readOnly={disabled}
       />
     </div>
   );

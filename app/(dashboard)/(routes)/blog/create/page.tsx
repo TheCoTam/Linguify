@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useRouter } from 'next/navigation';
-import { LoaderCircle } from 'lucide-react';
+import { useState } from 'react';
 
 import TitleInput from '@/components/Blog/CreateBlog/TitleInput';
 import ContentInput from '@/components/Blog/CreateBlog/ContentInput';
@@ -14,6 +14,7 @@ import { NewBlogSchema } from '@/schemas';
 
 const CreateBlog = () => {
   const router = useRouter();
+  const [isDisabled, setIsDisabled] = useState(false);
   const form = useForm<z.infer<typeof NewBlogSchema>>({
     resolver: zodResolver(NewBlogSchema),
     defaultValues: {
@@ -22,19 +23,21 @@ const CreateBlog = () => {
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof NewBlogSchema>) => {
-    try {
-      const response = await axios.post(
-        '/api/blog/createNewBlog',
-        data,
-      );
-      console.log(response);
-      toast.success('Blog posted');
-      router.push('/blog?page=1');
-    } catch (error) {
-      console.log('[CreateBlog]', error);
-      toast.error('Something went wrong');
-    }
+  const onSubmit = (data: z.infer<typeof NewBlogSchema>) => {
+    setIsDisabled(true);
+    toast.loading('Posting blog...');
+    axios
+      .post('/api/blog/createNewBlog', data)
+      .then(() => {
+        toast.dismiss();
+        toast.success('Blog posted');
+        router.push('/blog?page=1');
+      })
+      .catch((error) => {
+        console.log('[CreateBlog]', error);
+        toast.dismiss();
+        toast.error('Something went wrong');
+      });
   };
 
   return (
@@ -48,25 +51,24 @@ const CreateBlog = () => {
             name="title"
             control={form.control}
             errorMessage={form.formState.errors.title?.message}
+            disabled={isDisabled}
           />
           <button
-            className="w-max px-3 py-2 bg-orange-200 hover:bg-orange-300 active:bg-orange-400 border-[3px] border-dashed rounded-2xl border-slate-400 hover:border-slate-500 active:border-slate-600"
-            disabled={form.formState.isSubmitting}
+            className={`w-max px-3 py-2 text-white bg-black  rounded-lg ${
+              isDisabled
+                ? 'cursor-not-allowed'
+                : 'hover:opacity-80 active:opacity-60'
+            }`}
+            disabled={isDisabled}
           >
-            {form.formState.isSubmitting ? (
-              <div className="flex gap-2">
-                <LoaderCircle className="animate-spin" />
-                <div>Publishing</div>
-              </div>
-            ) : (
-              <div>Publish</div>
-            )}
+            Publish
           </button>
         </div>
         <ContentInput
           name="content"
           control={form.control}
           errorMessage={form.formState.errors.content?.message}
+          disabled={isDisabled}
         />
       </form>
     </div>

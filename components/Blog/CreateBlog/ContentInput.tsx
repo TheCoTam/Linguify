@@ -7,9 +7,15 @@ interface props {
   name: string;
   control: any;
   errorMessage?: string;
+  disabled?: boolean;
 }
 
-function ContentInput({ name, control, errorMessage }: props) {
+function ContentInput({
+  name,
+  control,
+  errorMessage,
+  disabled,
+}: props) {
   return (
     <div>
       <Controller
@@ -20,7 +26,10 @@ function ContentInput({ name, control, errorMessage }: props) {
             value={field.value}
             onChange={field.onChange}
             height={400}
-            className={!!errorMessage ? styles['error-editor'] : ''}
+            className={`${
+              !!errorMessage ? styles['error-editor'] : ''
+            } ${disabled ? 'text-gray-500 cursor-not-allowed' : ''}`}
+            disabled={disabled}
           />
         )}
       />

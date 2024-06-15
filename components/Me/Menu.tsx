@@ -19,7 +19,7 @@ function Menu({ children, classname }: MenuProps) {
 
   const markAll = () => {
     readAllNotifications();
-    toast.success('Đánh dấu thành công!');
+    toast.success('Mark all as read');
     router.refresh();
   };
 
