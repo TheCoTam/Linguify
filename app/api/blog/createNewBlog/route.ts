@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     await db.notification.create({
       data: {
         userId: owner,
-        message: 'You created a new blog post',
+        message: `You created a new blog post ${title}`,
         image: '/images/linguify-logo-small.png',
         href: `/blog/${blog.id}`,
       },
