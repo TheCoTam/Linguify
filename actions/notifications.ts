@@ -19,12 +19,22 @@ export const readAllNotifications = async () => {
 
 export const readNotification = async (id: string) => {
   try {
-    await db.notification.update({
+    const notification = await db.notification.findUnique({
       where: { id },
-      data: { isRead: true },
     });
-    return { success: 'Mark notification as read successfully!' };
-    // return null;
+
+    if (!notification) {
+      return { error: 'Something went wrong!' };
+    }
+
+    if (notification.isRead === false) {
+      await db.notification.update({
+        where: { id },
+        data: { isRead: true },
+      });
+      return { success: 'Mark as read' };
+    }
+    return null;
   } catch (error) {
     console.log('[actions/notifications]', error);
     return { error: 'Something went wrong!' };

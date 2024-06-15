@@ -16,12 +16,18 @@ function Item({ data }: props) {
 
   const handleClick = () => {
     readNotification(data.id).then((res) => {
-      // if (res?.success) toast.success(res.success);
+      if (res?.success) toast.success(res.success);
       if (res?.error) toast.error(res.error);
-      router.refresh();
+      if (data.href) {
+        router.push(data.href);
+      } else {
+        router.refresh();
+      }
     });
   };
+
   const itemImage = data.image ? data.image : '/images/no-image.png';
+
   return (
     <div
       className="flex flex-row items-center gap-4 px-3 py-2 hover:bg-green-100 cursor-pointer rounded-xl"
