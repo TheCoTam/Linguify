@@ -34,7 +34,7 @@ export const newVerification = async (token: string) => {
     });
   }
 
-  if (existingUser.email !== existingToken.email) {
+  if (existingUser.email !== existingToken.newEmail) {
     await db.notification.create({
       data: {
         userId: existingUser.id,
@@ -49,7 +49,7 @@ export const newVerification = async (token: string) => {
     where: { id: existingUser.id },
     data: {
       emailVerified: new Date(),
-      email: existingToken.email,
+      email: existingToken.newEmail || existingToken.email,
     },
   });
 

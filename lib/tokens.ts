@@ -4,7 +4,7 @@ import { getTwoFactorTokenByEmail } from '@/data/two-factor-token';
 import { v4 as uuidv4 } from 'uuid';
 import crypto from 'crypto';
 import { db } from './db';
-import jwt, { type Secret } from "jsonwebtoken";
+import jwt, { type Secret } from 'jsonwebtoken';
 
 export const generateTwoFactorToken = async (email: string) => {
   const token = crypto.randomInt(100_000, 1_000_000).toString();
@@ -52,7 +52,10 @@ export const generatePasswordResetToken = async (email: string) => {
   return passwordResetToken;
 };
 
-export const generateVerificationToken = async (email: string) => {
+export const generateVerificationToken = async (
+  email: string,
+  newEmail?: string,
+) => {
   const token = uuidv4();
   const expires = new Date(new Date().getTime() + 3600 * 1000);
 
@@ -69,6 +72,7 @@ export const generateVerificationToken = async (email: string) => {
   const verificationToken = await db.verificationToken.create({
     data: {
       email,
+      newEmail,
       token,
       expires,
     },
@@ -85,17 +89,15 @@ interface Payload {
   version: number;
 }
 
-const payload : Payload= {
+const payload: Payload = {
   access_key: process.env.ACCESS_KEY!,
   type: 'management',
   version: 2,
   iat: Math.floor(Date.now() / 1000),
-  nbf: Math.floor(Date.now() / 1000)
+  nbf: Math.floor(Date.now() / 1000),
 };
 
-
 export const generateManagementToken = (): Promise<string> => {
-
   return new Promise((resolve, reject) => {
     jwt.sign(
       payload,
@@ -103,7 +105,7 @@ export const generateManagementToken = (): Promise<string> => {
       {
         algorithm: 'HS256',
         expiresIn: '24h',
-        jwtid: uuidv4()
+        jwtid: uuidv4(),
       },
       function (err, token) {
         if (err) {
@@ -111,7 +113,7 @@ export const generateManagementToken = (): Promise<string> => {
         } else {
           resolve(token as string);
         }
-      }
+      },
     );
   });
 };
