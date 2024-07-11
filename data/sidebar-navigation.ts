@@ -11,12 +11,12 @@ export const STUDENT_ROUTES = [
     type: 'square',
     href: '/search',
   },
-  {
-    title: 'Livechat',
-    topIcon: '/icons/chatIcon.svg',
-    type: 'square',
-    href: '/calls',
-  },
+  // {
+  //   title: 'Livechat',
+  //   topIcon: '/icons/chatIcon.svg',
+  //   type: 'square',
+  //   href: '/calls',
+  // },
   {
     title: 'Blogs',
     topIcon: '/icons/blogIcon.svg',
