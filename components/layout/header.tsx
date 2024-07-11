@@ -43,12 +43,12 @@ function Header() {
           />
         </button>
         {headerModal && <HeaderModal closeModal={closeHeaderModal} />}
-        <div>
+        <div className='flex justify-center items-center overflow-hidden max-h-[60px] rounded-xl'>
           <Link href="/">
             <Image
-              src="/images/linguify-logo.png"
+              src="/images/original.png"
               width={180}
-              height={40}
+              height={64}
               alt="logo"
             />
           </Link>
