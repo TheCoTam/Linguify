@@ -34,8 +34,7 @@ export const ChapterTitleForm = ({
   chapterId,
 }: ChapterTitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const toggleEdit = () =>
-    setIsEditing((current) => !current);
+  const toggleEdit = () => setIsEditing((current) => !current);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,9 +44,7 @@ export const ChapterTitleForm = ({
 
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = async (
-    values: z.infer<typeof formSchema>,
-  ) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const { title } = values;
       const { title: existingTitle } = initialData;

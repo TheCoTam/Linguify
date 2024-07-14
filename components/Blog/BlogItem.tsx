@@ -10,7 +10,7 @@ import { calculateTime } from '@/lib/utils';
 interface props {
   data: any;
   owner: any;
-  isFavoriteBlog: boolean;
+  isFavoriteBlog?: boolean;
 }
 
 function BlogItem({ data, owner, isFavoriteBlog }: props) {

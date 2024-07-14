@@ -6,6 +6,7 @@ import { currentUserId } from '@/lib/auth';
 export const getBlogs = async () => {
   try {
     const blogs = await db.blog.findMany({
+      where: { isPublished: true },
       orderBy: { createdAt: 'desc' },
       include: { user: true, FavoriteBlog: true },
     });

@@ -7,15 +7,20 @@ export const USER_MENU = [
     href: '/profile',
   },
   {
+    title: 'My Blogs',
+    hrTag: false,
+    href: '/myBlogs',
+  },
+  {
     title: 'Notifications',
     hrTag: true,
     href: '/notifications',
   },
-  {
-    title: 'Livechat',
-    href: '/calls',
-    hrTag: false,
-  },
+  // {
+  //   title: 'Livechat',
+  //   href: '/calls',
+  //   hrTag: false,
+  // },
   {
     title: 'Blogs',
     hrTag: false,

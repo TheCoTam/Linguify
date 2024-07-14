@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       data: {
         userId: owner,
         message: `You created a new blog post ${title}`,
-        image: '/images/linguify-logo-small.png',
+        image: '/images/original.png',
         href: `/blog/${blog.id}`,
       },
     });

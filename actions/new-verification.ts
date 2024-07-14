@@ -28,7 +28,7 @@ export const newVerification = async (token: string) => {
     await db.notification.create({
       data: {
         userId: existingUser.id,
-        image: '/images/linguify-logo-small.png',
+        image: '/images/original.png',
         message: 'Welcome to Linguify! ️🎉️🎉️🎉',
       },
     });
@@ -38,7 +38,7 @@ export const newVerification = async (token: string) => {
     await db.notification.create({
       data: {
         userId: existingUser.id,
-        image: '/images/linguify-logo-small.png',
+        image: '/images/original.png',
         message: 'You have changed your email!',
         href: '/settings',
       },
